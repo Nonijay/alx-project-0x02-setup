@@ -5,8 +5,10 @@ import { HeaderProps } from "@/interfaces";
 
 const About: React.FC = () => {
     return (
-        <div>
-
+        <div
+            className="flex gap-4">
+            <Header />
+                
         </div>
     )
 };
