@@ -1,62 +1,50 @@
-import Header from "@/components/layout/Header";
-import Link from "next/link";
-import React from "react";
-import { HeaderProps } from "@/interfaces";
-import Image from "next/image";
+// pages/home.tsx
+import React, { useState } from 'react';
+import PostModal from '@/components/common/PostModal';
+import Card from '@/components/common/Card';
+import Header from '@/components/layout/Header';
+<Header/>
+type Post = {
+  title: string;
+  content: string;
+};
 
-import { Geist, Geist_Mono } from "next/font/google";
+const Home = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [posts, setPosts] = useState<Post[]>([]);
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+  const handleAddPost = (newPost: Post) => {
+    setPosts([newPost, ...posts]);
+  };
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Home Page</h1>
 
-const Home: React.FC = () => {
-    return (
-      <div
-        className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
+      <button
+        onClick={() => setModalOpen(true)}
+        className="mb-4 bg-blue-600 text-white px-4 py-2 rounded"
       >
-        <Header />
-        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-          <Image
-            className="dark:invert"
-            src="/next.svg"
-            alt="Next.js logo"
-            width={180}
-            height={38}
-            priority
-          />
-          <h1 
-            className="text-4xl">
-              Welcome to Alx Project 02
-          </h1>
-          <div className="flex gap-4 items-center flex-col sm:flex-row">
-            <a
-              className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-              href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                className="dark:invert"
-                src="/vercel.svg"
-                alt="Vercel logomark"
-                width={15}
-                height={20}
-              />
-              Click here
-            </a>
-            
+        Create Post
+      </button>
+
+      <PostModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSubmit={handleAddPost}
+      />
+
+      <div className="space-y-4">
+        {posts.map((post, index) => (
+          <div key={index} className="border p-4 rounded shadow">
+            <h2 className="font-semibold text-lg">{post.title}</h2>
+            <p className="text-gray-700">{post.content}</p>
           </div>
-        </main>
-        {/* <Footer /> */}
+        ))}
       </div>
-    );
-  }
-  
-  export default Home
+    </div>
+  );
+};
+
+export default Home;
+

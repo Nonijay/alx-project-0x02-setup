@@ -1,20 +1,17 @@
-import Header from "@/components/layout/Header";
-import Link from "next/link";
-import React from "react";
-import { HeaderProps } from "@/interfaces";
+import Button from '@/components/common/Button'
+import React from 'react'
+import Header from '@/components/layout/Header'
 
-const About: React.FC = () => {
-    return (
-        <div
-            className="bg-amber-100">
-            <Header />
-            <main className="">
-                <h1 className="text-2x1 bg-amber-100">
-                    About Page
-                </h1>
-            </main>
-        </div>
-    )
-};
+<Header/>
 
-export default About;
+const about = () => {
+  return (
+    <>
+    <Button size="small" shape="round-sm" />
+    <Button size="medium" shape="round-md" />
+    <Button size="large" shape="round-full" />
+    </>
+  )
+}
+
+export default about
